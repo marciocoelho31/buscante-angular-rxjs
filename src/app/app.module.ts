@@ -13,6 +13,8 @@ import { ModalLivroComponent } from './views/modal-livro/modal-livro.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AutoriaPipe } from './pipes/autoria.pipe';
+import { SobreComponent } from './views/sobre/sobre.component';
+import { ContatoComponent } from './views/contato/contato.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { AutoriaPipe } from './pipes/autoria.pipe';
     LivroComponent,
     ListaLivrosComponent,
     ModalLivroComponent,
-    AutoriaPipe
+    AutoriaPipe,
+    SobreComponent,
+    ContatoComponent
   ],
   imports: [
     BrowserModule,

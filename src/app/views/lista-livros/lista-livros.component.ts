@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, tap, throwError } from 'rxjs';
 import { Item, LivrosResultado } from 'src/app/models/interfaces';
@@ -39,7 +39,7 @@ const PAUSA = 300;
   ]
 })
 
-export class ListaLivrosComponent { //implements OnDestroy {
+export class ListaLivrosComponent implements AfterViewInit { //implements OnDestroy {
 
   //listaLivros: Livro[];
   campoBusca = new FormControl();
@@ -48,22 +48,13 @@ export class ListaLivrosComponent { //implements OnDestroy {
   mensagemErro = '';
   livrosResultado: LivrosResultado;
   listaLivros: LivroVolumeInfo[];
+  @ViewChild('campoBuscaElement') campoBuscaElement!: ElementRef;
 
   constructor(private service: LivroService) { }
 
-  // totalDeLivros$ = this.campoBusca.valueChanges
-  // .pipe(
-  //   debounceTime(PAUSA),
-  //   filter((valorDigitado) => valorDigitado.length > 3),
-  //   tap(() => console.log('Fluxo inicial')),
-  //   distinctUntilChanged(),
-  //   switchMap((valorDigitado) => this.service.buscar(valorDigitado)),
-  //   map((resultado) => this.livrosResultado = resultado),
-  //   catchError((error) => {
-  //     console.log(error);
-  //     return of();
-  //   })
-  // );
+  ngAfterViewInit() {
+    this.campoBuscaElement.nativeElement.focus();
+  }
 
   livrosEncontrados$ = this.campoBusca.valueChanges
     .pipe(

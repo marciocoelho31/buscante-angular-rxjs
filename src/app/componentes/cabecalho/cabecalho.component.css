@@ -16,8 +16,6 @@ header a {
   font-size: 18px;
   line-height: 27px;
   margin-right: 1.5rem;
-  width: 79px;
-  height: 48px;
 }
 
 button {
@@ -26,4 +24,16 @@ button {
   border: none;
 }
 
+.logo {
+  display: block;
+  width: 236px;
+  height: 60px;
+}
 
+header .active-page {
+  background-color: #6c63ff;
+}
+
+header .active-page.logo {
+  background-color: #f5f5f5;
+}
