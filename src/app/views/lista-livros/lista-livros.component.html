@@ -2,11 +2,12 @@
   <header>Que livro você procura?</header>
   <div class="busca">
     <input
+      aria-label="Campo de busca"
       type="search"
       [formControl]="campoBusca"
       #campoBuscaElement
     >
-    <button>
+    <button aria-label="Botão para buscar">
       <img src="assets/imagens/icone-busca.png" alt="Lupa de cor roxa">
     </button>
   </div>
