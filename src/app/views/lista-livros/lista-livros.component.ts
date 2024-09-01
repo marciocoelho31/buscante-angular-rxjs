@@ -5,6 +5,7 @@ import { Item, LivrosResultado } from 'src/app/models/interfaces';
 import { LivroVolumeInfo } from 'src/app/models/livro-volume-info';
 import { LivroService } from 'src/app/service/livro.service';
 import { trigger, transition, query, style, stagger, animate, keyframes } from '@angular/animations';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 const PAUSA = 300;
 
@@ -50,7 +51,10 @@ export class ListaLivrosComponent implements AfterViewInit { //implements OnDest
   listaLivros: LivroVolumeInfo[];
   @ViewChild('campoBuscaElement') campoBuscaElement!: ElementRef;
 
-  constructor(private service: LivroService) { }
+  constructor(
+    private service: LivroService,
+    private liveAnnouncer: LiveAnnouncer
+  ) { }
 
   ngAfterViewInit() {
     this.campoBuscaElement.nativeElement.focus();
@@ -64,6 +68,10 @@ export class ListaLivrosComponent implements AfterViewInit { //implements OnDest
       distinctUntilChanged(),
       switchMap((valorDigitado) => this.service.buscar(valorDigitado)),
       tap((retornoAPI) => console.log(retornoAPI)),
+      tap((resultado) => {
+        this.livrosResultado = resultado;
+        this.liveAnnouncer.announce(`${this.livrosResultado.totalItems} resultados encontrados`);
+      }),
       map(resultado => this.livrosResultado = resultado),
       map(resultado => resultado.items ?? []),
       map((items) => this.listaLivros = this.livrosResultadoParaLivros(items)
