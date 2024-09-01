@@ -1,7 +1,15 @@
-<section *ngIf="statusModal" class="container {{ esconderScroll() }}">
-  <div class="card">
-    <img class="imagem" src="{{ livro.thumbnail != undefined ? livro.thumbnail : 'assets/imagens/capa-indisponivel.png' }}" alt="Capa do livro">
-    <div class="info-card">
+<dialog 
+  cdkTrapFocus
+  cdkTrapFocusAutoCapture="true"
+  [open]="statusModal" 
+  class="container">
+  <article class="card">
+    <img 
+      class="imagem" 
+      src="{{ livro.thumbnail != undefined ? livro.thumbnail : 'assets/imagens/capa-indisponivel.png' }}" 
+      alt="Capa do livro"
+    >
+    <section class="info-card">
       <p class="titulo">{{ livro.title }}</p>
       <p class="informacoes">Autoria:</p>
       <p class="resultado">{{ livro.authors }}</p>
@@ -9,15 +17,24 @@
       <p class="resultado">{{ livro.publishedDate | date:'dd/MM/yyyy' }}</p>
       <p class="informacoes">Editora:</p>
       <p class="resultado">{{ livro.publisher }}</p>
-      <button [attr.aria-label]="'Ler prévia do livro' + livro.title" (click)="lerPrevia()" class="detalhes">Ler prévia</button>
-    </div>
-      <button aria-label="Fechar modal" (click)="fecharModal()" class="botao-fechar" >
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    <div class="sinopse">
+      <div class="botoes">
+        <button 
+          [attr.aria-label]="'Ler prévia do livro' + livro.title" 
+          (click)="lerPrevia()" 
+          class="detalhes"
+          >
+          Ler prévia
+        </button>
+        <button class="detalhes">Comprar livro</button>
+      </div>
+    </section>
+    <button aria-label="Fechar modal" (click)="fecharModal()" class="botao-fechar" >
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <section class="sinopse">
       <h4 class="informacoes">Sinopse</h4>
       <p class="resultado">{{ livro.description | slice:0:1000 }}</p>
-    </div>
-  </div>
-  <div class="overlay"></div>
-</section>
+    </section>
+  </article>
+  <div class="overlay" (click)="fecharModal()"></div>
+</dialog>
